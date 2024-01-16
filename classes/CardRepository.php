@@ -27,17 +27,15 @@ class CardRepository
     // Get all
     public function get(): array
     {
-        // TODO: Create an SQL query
-        // TODO: Use your database connection (see $databaseManager) and send your query to your database.
-        // TODO: fetch your data at the end of that action.
-        // TODO: replace dummy data by real one
-        return [
-            ['name' => 'dummy one'],
-            ['name' => 'dummy two'],
-        ];
-
-        // We get the database connection first, so we can apply our queries with it
-        // return $this->databaseManager->connection-> (runYourQueryHere)
+        try {
+            $statement = $this->databaseManager->connection->query("SELECT name, hp, type, cardYear FROM cards");
+            $cards = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $cards;
+        } catch (PDOException $error) {
+            echo $error->getMessage();
+            return [];
+        }
     }
 
     public function update(): void

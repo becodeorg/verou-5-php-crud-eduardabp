@@ -13,7 +13,12 @@
 
 <ul>
     <?php foreach ($cards as $card) : ?>
-        <li><?= $card['name'] ?></li>
+        <li>
+            <strong>Name: </strong> <?= $card['name'] ?><br>
+            <strong>HP: </strong> <?= $card['hp'] ?><br>
+            <strong>Type: </strong> <?= $card['type'] ?><br>
+            <strong>Card Year: </strong> <?= $card['cardYear'] ?>
+        </li><br>
     <?php endforeach; ?>
 </ul>
 
