@@ -11,6 +11,8 @@
 
 <h1>Goodcard - track your collection of Pokémon cards</h1>
 
+<a href="index.php?action=create">Add a Pokémon Card to our Collection</a>
+
 <ul>
     <?php foreach ($cards as $card) : ?>
         <li>

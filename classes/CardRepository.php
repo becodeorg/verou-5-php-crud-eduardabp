@@ -13,9 +13,14 @@ class CardRepository
         $this->databaseManager = $databaseManager;
     }
 
-    public function create(): void
+    public function create(string $name, int $hp, string $type, int $cardYear): void
     {
-
+        try {
+            $statement = $this->databaseManager->connection->prepare("INSERT INTO cards (name, hp, type, cardYear) VALUES (?, ?, ?, ?)");
+            $statement->execute([$name, $hp, $type, $cardYear]);
+        } catch (PDOException $error) {
+            echo $error->getMessage();
+        }
     }
 
     // Get one

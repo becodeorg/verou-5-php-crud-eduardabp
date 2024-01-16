@@ -44,5 +44,23 @@ function overview()
 
 function create()
 {
-    // TODO: provide the create logic
+    global $cardRepository;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = $_POST['name'] ?? '';
+        $hp = (int)$_POST['hp'] ?? 0;
+        $type = $_POST['type'] ?? '';
+        $cardYear = (int)$_POST['cardYear'] ?? 0;
+
+        // Validate form data (add more validation as needed)
+
+        // Save the new Pokémon card to the database
+        $cardRepository->create($name, $hp, $type, $cardYear);
+
+        // Redirect to the overview page after creating the card
+        header('Location: index.php');
+        exit;
+    }
+
+    // If not a POST request, show the create form
+    require 'create.php';
 }
