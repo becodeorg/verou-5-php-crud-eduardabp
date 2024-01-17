@@ -28,6 +28,9 @@ switch ($action) {
     case 'create':
         create();
         break;
+    case 'edit':
+        edit();
+        break;
     default:
         overview();
         break;
@@ -35,8 +38,6 @@ switch ($action) {
 
 function overview()
 {
-    // Load your view
-    // Tip: you can load this dynamically and based on a variable, if you want to load another view
     global $cardRepository; 
     $cards = $cardRepository->get();
     require 'overview.php';
@@ -51,16 +52,35 @@ function create()
         $type = $_POST['type'] ?? '';
         $cardYear = (int)$_POST['cardYear'] ?? 0;
 
-        // Validate form data (add more validation as needed)
-
-        // Save the new Pokémon card to the database
         $cardRepository->create($name, $hp, $type, $cardYear);
 
-        // Redirect to the overview page after creating the card
+        echo "Your card has been added to the database!";
+    } 
+    require 'create.php';
+}
+
+function edit()
+{
+    $id = (int)$_GET['id'] ?? 0;
+    global $cardRepository;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = $_POST['name'] ?? '';
+        $hp = (int)$_POST['hp'] ?? 0;
+        $type = $_POST['type'] ?? '';
+        $cardYear = (int)$_POST['cardYear'] ?? 0;
+
+        $cardRepository->update($id, $name, $hp, $type, $cardYear);
+
         header('Location: index.php');
         exit;
     }
 
-    // If not a POST request, show the create form
-    require 'create.php';
+    $card = $cardRepository->find($id);
+    if (!$card) {
+        echo "Card not found";
+        exit;
+    }
+
+    require 'edit.php';
 }
