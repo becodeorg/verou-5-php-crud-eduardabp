@@ -16,10 +16,14 @@
 <ul>
     <?php foreach ($cards as $card) : ?>
         <li>
+            <strong>ID: </strong> <?= $card['id'] ?><br>
             <strong>Name: </strong> <?= $card['name'] ?><br>
             <strong>HP: </strong> <?= $card['hp'] ?><br>
             <strong>Type: </strong> <?= $card['type'] ?><br>
-            <strong>Card Year: </strong> <?= $card['cardYear'] ?>
+            <strong>Card Year: </strong> <?= $card['cardYear'] ?><br>
+            &nbsp&nbsp
+            <a href="index.php?action=edit&id=<?= $card['id'] ?>">Edit</a>&nbsp&nbsp&nbsp&nbsp
+            <a href="index.php?action=delete&id=<?= $card['id'] ?>">Delete</a>
         </li><br>
     <?php endforeach; ?>
 </ul>
