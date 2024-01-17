@@ -24,16 +24,23 @@ class CardRepository
     }
 
     // Get one
-    public function find(): array
+    public function find(int $id): array
     {
-
+        try {
+            $statement = $this->databaseManager->connection->prepare("SELECT * FROM cards WHERE id = ?");
+            $statement->execute([$id]);
+            return $statement->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (PDOException $error) {
+            echo $error->getMessage();
+            return null;
+        }
     }
 
     // Get all
     public function get(): array
     {
         try {
-            $statement = $this->databaseManager->connection->query("SELECT name, hp, type, cardYear FROM cards");
+            $statement = $this->databaseManager->connection->query("SELECT id, name, hp, type, cardYear FROM cards");
             $cards = $statement->fetchAll(PDO::FETCH_ASSOC);
     
             return $cards;
@@ -43,9 +50,14 @@ class CardRepository
         }
     }
 
-    public function update(): void
+    public function update(int $id, string $name, int $hp, string $type, int $cardYear): void
     {
-
+        try {
+            $statement = $this->databaseManager->connection->prepare("UPDATE cards SET name = ?, hp = ?, type = ?, cardYear = ? WHERE id = ?");
+            $statement->execute([$name, $hp, $type, $cardYear, $id]);
+        } catch (PDOException $error) {
+            echo $error->getMessage();
+        }
     }
 
     public function delete(): void
