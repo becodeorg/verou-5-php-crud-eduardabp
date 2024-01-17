@@ -22,7 +22,7 @@ class DatabaseManager
             $dsn = "mysql:host=$this->host;dbname=$this->dbname";
             $this->connection = new PDO($dsn, $this->user, $this->password);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); // all data will return as an associative array
             echo "Connected";
         } catch (PDOException $error) {
             echo $error->getMessage();

@@ -31,6 +31,9 @@ switch ($action) {
     case 'edit':
         edit();
         break;
+    case 'delete':
+        delete();
+        break;
     default:
         overview();
         break;
@@ -83,4 +86,26 @@ function edit()
     }
 
     require 'edit.php';
+}
+
+function delete()
+{
+    $id = (int)$_GET['id'] ?? 0;
+    global $cardRepository;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+ 
+        $cardRepository->delete($id);
+
+        header('Location: index.php');
+        exit;
+    }
+
+    $card = $cardRepository->find($id);
+    if (!$card) {
+        echo "Card not found";
+        exit;
+    }
+
+    require 'delete.php';
 }
