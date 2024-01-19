@@ -60,9 +60,14 @@ class CardRepository
         }
     }
 
-    public function delete(): void
+    public function delete(int $id): void
     {
-
+        try {
+            $statement = $this->databaseManager->connection->prepare("DELETE FROM cards WHERE id = ?");
+            $statement->execute([$id]);
+        }catch (PDOException $error) {
+            echo $error->getMessage();
+        }
     }
 
 }

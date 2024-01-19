@@ -51,9 +51,9 @@ function create()
     global $cardRepository;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = $_POST['name'] ?? '';
-        $hp = (int)$_POST['hp'] ?? 0;
+        $hp = $_POST['hp'] ?? 0;
         $type = $_POST['type'] ?? '';
-        $cardYear = (int)$_POST['cardYear'] ?? 0;
+        $cardYear = $_POST['cardYear'] ?? 0;
 
         $cardRepository->create($name, $hp, $type, $cardYear);
 
@@ -69,9 +69,9 @@ function edit()
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = $_POST['name'] ?? '';
-        $hp = (int)$_POST['hp'] ?? 0;
+        $hp = $_POST['hp'] ?? 0;
         $type = $_POST['type'] ?? '';
-        $cardYear = (int)$_POST['cardYear'] ?? 0;
+        $cardYear = $_POST['cardYear'] ?? 0;
 
         $cardRepository->update($id, $name, $hp, $type, $cardYear);
 
